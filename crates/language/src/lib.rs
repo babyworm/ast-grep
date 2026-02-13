@@ -39,6 +39,7 @@ mod rust;
 mod scala;
 mod solidity;
 mod swift;
+mod systemverilog;
 mod yaml;
 
 use ast_grep_core::matcher::{Pattern, PatternBuilder, PatternError};
@@ -236,6 +237,7 @@ impl_lang_expando!(Ruby, language_ruby, 'µ');
 impl_lang_expando!(Rust, language_rust, 'µ');
 //https://docs.swift.org/swift-book/documentation/the-swift-programming-language/lexicalstructure/#Identifiers
 impl_lang_expando!(Swift, language_swift, 'µ');
+impl_lang_expando!(SystemVerilog, language_systemverilog, '_');
 
 // Stub Language without preprocessing
 // Language Name, tree-sitter-name, alias, extension
@@ -278,6 +280,7 @@ pub enum SupportLang {
   Scala,
   Solidity,
   Swift,
+  SystemVerilog,
   Tsx,
   TypeScript,
   Yaml,
@@ -288,7 +291,8 @@ impl SupportLang {
     use SupportLang::*;
     &[
       Bash, C, Cpp, CSharp, Css, Elixir, Go, Haskell, Hcl, Html, Java, JavaScript, Json, Kotlin,
-      Lua, Nix, Php, Python, Ruby, Rust, Scala, Solidity, Swift, Tsx, TypeScript, Yaml,
+      Lua, Nix, Php, Python, Ruby, Rust, Scala, Solidity, Swift, SystemVerilog, Tsx, TypeScript,
+      Yaml,
     ]
   }
 
@@ -392,6 +396,7 @@ impl_aliases! {
   Scala => &["scala"],
   Solidity => &["sol", "solidity"],
   Swift => &["swift"],
+  SystemVerilog => &["sv", "systemverilog", "verilog"],
   TypeScript => &["ts", "typescript"],
   Tsx => &["tsx"],
   Yaml => &["yaml", "yml"],
@@ -439,6 +444,7 @@ macro_rules! execute_lang_method {
       S::Scala => Scala.$method($($pname,)*),
       S::Solidity => Solidity.$method($($pname,)*),
       S::Swift => Swift.$method($($pname,)*),
+      S::SystemVerilog => SystemVerilog.$method($($pname,)*),
       S::Tsx => Tsx.$method($($pname,)*),
       S::TypeScript => TypeScript.$method($($pname,)*),
       S::Yaml => Yaml.$method($($pname,)*),
@@ -511,6 +517,7 @@ fn extensions(lang: SupportLang) -> &'static [&'static str] {
     Scala => &["scala", "sc", "sbt"],
     Solidity => &["sol"],
     Swift => &["swift"],
+    SystemVerilog => &["sv", "svh", "v", "vh"],
     TypeScript => &["ts", "cts", "mts"],
     Tsx => &["tsx"],
     Yaml => &["yaml", "yml"],
