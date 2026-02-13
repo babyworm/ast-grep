@@ -506,16 +506,14 @@
         },
         "column": {
           "description": "0-based column number in the source code",
-          "type": [
-            "integer",
-            "null"
-          ],
+          "type": "integer",
           "format": "uint",
           "minimum": 0
         }
       },
       "required": [
-        "line"
+        "line",
+        "column"
       ]
     },
     "Relation": {
